@@ -1,8 +1,8 @@
 <?php
 	define("DB_HOST", "localhost");
-	define("DB_USR", "");
-	define("DB_PASS", "");
-	define("DB_DB", "");
+	define("DB_USR", "phpdba");
+	define("DB_PASS", "PHP 1234 algo mas complejo");
+	define("DB_DB", "penelope");
 	//define(DB_TYPE, "mysql");
 
 	$template_config = 
@@ -12,5 +12,5 @@
         'cache_dir' => 'libs/smarty/cache/',
         'config_dir' => 'libs/smarty/configs/',
         );
-    define ("URL_BASE","/tip/ejemplos/framework/");
+    define ("URL_BASE","/penelope/");
 ?>

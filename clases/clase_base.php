@@ -4,7 +4,7 @@ class ClaseBase{
     private $db;
     private $conectar;
     private $modelo;
-    
+
     public function __autoload($class) {
 	    print "autoloading $class\n";
 	    require_once($class . '.php');
