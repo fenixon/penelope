@@ -1,22 +1,26 @@
 <?php
-class ClaseBase{
-	private $tabla;
+  class ClaseBase{
+    private $tabla;
     private $db;
     private $conectar;
     private $modelo;
 
     public function __autoload($class) {
-	    print "autoloading $class\n";
-	    require_once($class . '.php');
-	}
+      print "autoloading $class\n";
+      require_once($class.'.php');
+    }
+
     public function __construct($tabla) {
+        var_dump($tabla);
         $this->tabla=(string) $tabla;
         $this->db=DB::conexion();
         $this->modelo=get_class($this);
     }
+
     public function getDB(){
         return $this->db;
     }
+
     //Funciones comunes a todas las clases
     public function getListado(){
     	$sql="select * from $this->tabla ";
