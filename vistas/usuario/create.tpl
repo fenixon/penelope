@@ -8,9 +8,9 @@
 
       <!-- Text input-->
       <div class="control-group">
-        <label class="control-label" for="username">Nombre de usuario</label>
+        <label class="control-label" for="nick">Nombre de usuario</label>
         <div class="controls">
-          <input id="username" name="username" placeholder="ej.: lazyjoe"
+          <input id="nick" name="nick" placeholder="ej.: lazyjoe"
                  class="input-xxlarge" required="" type="text"/>
         </div>
       </div>
@@ -24,22 +24,31 @@
         </div>
       </div>
 
-      <!-- Password input-->
+      <!-- Text input-->
       <div class="control-group">
-        <label class="control-label" for="password">Contraseña</label>
+        <label class="control-label" for="reemail">Confirmación de E-Mail</label>
         <div class="controls">
-          <input id="password" name="password" placeholder="ej.: ******"
-                 class="input-xlarge" required="" type="password"/>
+          <input id="reemail" name="reemail" placeholder="ej.: lazyjoe@mail.com"
+                 class="input-xlarge" required="" type="text"/>
         </div>
       </div>
 
       <!-- Password input-->
       <div class="control-group">
-        <label class="control-label" for="repassword">
+        <label class="control-label" for="contrasenia">Contraseña</label>
+        <div class="controls">
+          <input id="contrasenia" name="contrasenia" placeholder="ej.: ******"
+                 class="input-xlarge" required="" type="contrasenia"/>
+        </div>
+      </div>
+
+      <!-- Password input-->
+      <div class="control-group">
+        <label class="control-label" for="recontrasenia">
           Confirmación de contraseña
         </label>
         <div class="controls">
-          <input id="repassword" name="repassword" placeholder="ej.: ******"
+          <input id="recontrasenia" name="recontrasenia" placeholder="ej.: ******"
                  class="input-xlarge" required="" type="password"/>
         </div>
       </div>
