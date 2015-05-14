@@ -1,0 +1,23 @@
+body {
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background-image: url("/penelope/imagenes/Concert.jpg");
+  background-color: #000;
+  background-repeat: no-repeat;
+  background-position: top;
+  color: #fff;
+}
+
+.theme-dropdown .dropdown-menu {
+  position: static;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.theme-showcase > p > .btn {
+  margin: 5px 0;
+}
+
+.theme-showcase .navbar .container {
+  width: auto;
+}
