@@ -3,16 +3,20 @@
   * --------------
   * Tabla usuarios:
   * --------------
-  * id int(11)
-  * admin tinyint(1)
-  * nombres varchar(100)
-  * apellidos varchar(100)
-  * fecha_nac date
-  * email varchar(255)
-  * fecha_baja date
+  * id           int(11)
+  * nick         varchar(100)
+  * contrasenia  varchar(100)
+  * admin        tinyint(1)
+  * nombres      varchar(100)
+  * apellidos    varchar(100)
+  * fecha_nac    date
+  * email        varchar(255)
+  * fecha_baja   date
   */
   class Usuario extends ClaseBase {
     private $id;
+    private $nick;
+    private $contrasenia;
     private $admin;
     private $nombres;
     private $apellidos;
@@ -46,6 +50,14 @@
       return $this->id;
     }
 
+    public function getNick() {
+      return $this->nick;
+    }
+
+    public function getContrasenia() {
+      return $this->contrasenia;
+    }
+
     public function isAdmin() {
       return $this->admin;
     }
@@ -75,6 +87,14 @@
     //=========================================================================
     public function setId($id) {
       $this->id=$id;
+    }
+
+    public function setNick($nick) {
+      $this->nick=$nick;
+    }
+
+    public function setContrasenia($contrasenia) {
+      $this->contrasenia=$contrasenia;
     }
 
     public function setAdmin($admin) {
@@ -112,47 +132,65 @@
         }
       }
 
+      redirect("usuario", "create");
+
       return false;
     }
 
     private function insert() {
       $sql='INSERT INTO usuarios (admin, nombres, apellidos,';
-      $sql.=' fecha_nac, email, fecha_baja) ';
-      $sql.="VALUES (?, ?, ?, ?, ?, ?)";
+      $sql.=' fecha_nac, email, fecha_baja, nick, contrasenia)';
+      $sql.=" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-      $prepared_statement=$this->db->prepare($sql);
+      $prepared_statement=$this->getDB()->prepare($sql);
       $prepared_statement->bind_param(
-        'isssss',
-        $this->admin,
-        $this->nombres,
-        $this->apellidos,
-        $this->fecha_nac,
-        $this->email,
-        $this->fecha_baja
-      );
-      $prepared_statement->execute();
-
-      return $prepared_statement->affected_rows;
-    }
-
-    private function update() {
-      $sql='UPDATE usuarios SET admin=?, nombres=?, apellidos=?, fecha_nac=?,';
-      $sql.=' email=?, fecha_baja=? WHERE id=?';
-
-      $prepared_statement=$this->db->prepare($sql);
-      $prepared_statement->bind_param(
-        'isssssi',
+        'isssssss',
         $this->admin,
         $this->nombres,
         $this->apellidos,
         $this->fecha_nac,
         $this->email,
         $this->fecha_baja,
+        $this->nick,
+        $this->contrasenia
+      );
+
+      if ($prepared_statement->execute()==true) {
+        return $filas_afectadas;
+      } else {
+        /*foreach ($prepared_statement->error_list as $key=>$value) {
+          echo "<br/>";
+          var_dump($value);
+        }*/
+
+        return -1;
+      }
+
+      $filas_afectadas=$prepared_statement->affected_rows;
+    }
+
+    private function update() {
+      $sql='UPDATE usuarios SET admin=?, nombres=?, apellidos=?, fecha_nac=?,';
+      $sql.=' email=?, fecha_baja=?, nick=?, contrasenia=? WHERE id=?';
+
+      $prepared_statement=$this->getDB()->prepare($sql);
+      $prepared_statement->bind_param(
+        'isssssssi',
+        $this->admin,
+        $this->nombres,
+        $this->apellidos,
+        $this->fecha_nac,
+        $this->email,
+        $this->fecha_baja,
+        $this->nick,
+        $this->contrasenia,
         $this->id
       );
       $prepared_statement->execute();
 
-      return $prepared_statement->affected_rows;
+      $filas_afectadas=$prepared_statement->affected_rows;
+
+      return $filas_afectadas;
     }
   }
 ?>
