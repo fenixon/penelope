@@ -11,7 +11,7 @@
     <meta name="author" content="Piratas"/>
     <meta name="description" content=""/>
 
-    <base href="/penelope/"/>
+    <base href="http://{$url_base}">
 
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
@@ -56,6 +56,17 @@
 
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+
+    <style>
+      @font-face {
+        font-family: "penelopelogo";
+        src: url(fonts/pacifico.ttf) format("truetype");
+      }
+
+      body {
+        background-image: url("imagenes/Concert.jpg");
+      }
+    </style>
   </head>
 
   <body role="document">

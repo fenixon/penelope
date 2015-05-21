@@ -1,17 +1,20 @@
 <?php
   define('ROOT_DIR', dirname(__FILE__));
+  define('URL_BASE', $_SERVER['HTTP_HOST']."/penelope/");
 
-  require "db/db.php";
   require 'vendor/autoload.php';
-  require "controladores/ctrl_index.php";
+  require 'config/config.php';
+  require 'db/db.php';
+  require_once 'controladores/ctrl_index.php';
   require_once('clases/template.php');
   require_once 'clases/clase_base.php';
   $controlIndex=new ControladorIndex();
 
   $tpl = Template::getInstance();
-  $tpl->asignar('url_base',"http://localhost/penelope/");
+  //$tpl->asignar('url_base',"localhost/penelope/");
   $tpl->asignar('url_logout',$controlIndex->getUrl("usuario","logout"));
   $tpl->asignar('proyecto',"Penélope");
+  $tpl->asignar('url_base', URL_BASE);
 
   //Cargamos controladores y acciones
   if(isset($_GET['url'])){
