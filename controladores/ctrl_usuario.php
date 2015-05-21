@@ -24,8 +24,16 @@
         'contrasenia'=>$_POST['contrasenia']
       ));
 
-      echo "Guardado: ";
-      echo $usuario->save();
+      $usuario->save();
+
+      if (count($usuario->getErrores())>0) {
+        foreach ($usuario->getErrores() as $campo=>$errores) {
+          echo "$campo:<br/>";
+          foreach ($errores as $error) {
+            echo "* $error<br/>";
+          }
+        }
+      }
 
       //$this->redirect('usuario', 'create');
     }

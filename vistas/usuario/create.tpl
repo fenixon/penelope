@@ -1,7 +1,7 @@
 {extends file='layouts/main.tpl'}
 {block name=body}
 <div class="row">
-  <form class="form-horizontal" method="POST" action="penelope/save">
+  <form class="form-horizontal" method="POST" action="usuario/save">
     <fieldset>
       <!-- Form Name -->
       <legend>Registrar usuario</legend>

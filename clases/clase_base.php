@@ -4,6 +4,7 @@
     private $db;
     private $conectar;
     private $modelo;
+    private $errores;
 
     public function __autoload($class) {
       print "autoloading $class\n";
@@ -14,10 +15,23 @@
       $this->tabla=(string) $tabla;
       $this->db=DB::conexion();
       $this->modelo=get_class($this);
+      $this->errores=array();
     }
 
     public function getDB(){
       return $this->db;
+    }
+
+    public function getErrores() {
+      return $this->errores;
+    }
+
+    public function addError($campo, $error) {
+      if (!isset($this->errores[$campo])) {
+        $this->errores[$campo]=array();
+      }
+
+      array_push($this->errores[$campo], $error);
     }
 
     //Funciones comunes a todas las clases

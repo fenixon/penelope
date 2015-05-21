@@ -28,10 +28,24 @@
     //Constructor
     //=========================================================================
     public function __construct($params=NULL) {
+      parent::__construct("usuarios");
+
       if (isset($params)) {
         foreach ($params as $key=>$value) {
+          //Con esto nos aseguramos de que corran las validaciones necesarias.
+          //La contra es que vamos a tener que nombrar a todos los
+          //setters 'set...'
           if (property_exists(get_class($this), $key)) {
-            $this->$key=$value;
+            $atributo='';
+            $key=strtolower($key);
+            $piezas_atributo=explode('_', $key);
+
+            foreach ($piezas_atributo as $pieza) {
+              $atributo.=ucfirst($pieza);
+            }
+
+            $metodo="set$atributo";
+            $this->$metodo($value);
           }
         }
       }
@@ -39,8 +53,6 @@
       if (!isset($this->id)) {
         $this->id=-1;
       }
-
-      parent::__construct("usuarios");
     }
 
     //=========================================================================
@@ -54,11 +66,12 @@
       return $this->nick;
     }
 
-    public function getContrasenia() {
+    //¿Deberíamos dejar esta función?, tal vez no...
+    public function getContraseniaEncriptada() {
       return $this->contrasenia;
     }
 
-    public function isAdmin() {
+    public function getAdmin() {
       return $this->admin;
     }
 
@@ -94,7 +107,7 @@
     }
 
     public function setContrasenia($contrasenia) {
-      $this->contrasenia=$contrasenia;
+      $this->contrasenia=sha1($contrasenia);
     }
 
     public function setAdmin($admin) {
@@ -114,6 +127,22 @@
     }
 
     public function setEmail($email) {
+      //Control de dirección email repetida----------------------------------->
+      $email=strtolower($email);
+      $sql='SELECT * FROM usuarios WHERE email=?';
+      $prepared_statement=$this->getDB()->prepare($sql);
+      $prepared_statement->bind_param('s', $email);
+
+      if ($prepared_statement->execute()==true) {
+        $prepared_statement->store_result();
+        if ($prepared_statement->num_rows()>0) {
+          $this->addError('email', "¡Clave duplicada!");
+          $prepared_statement->close();
+          return;
+        }
+      }
+      //----------------------------------------------------------------------<
+
       $this->email=$email;
     }
 
@@ -132,12 +161,14 @@
         }
       }
 
-      redirect("usuario", "create");
-
       return false;
     }
 
     private function insert() {
+      if (count($this->getErrores())>0) {
+        return -2;
+      }
+
       $sql='INSERT INTO usuarios (admin, nombres, apellidos,';
       $sql.=' fecha_nac, email, fecha_baja, nick, contrasenia)';
       $sql.=" VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -156,17 +187,11 @@
       );
 
       if ($prepared_statement->execute()==true) {
+        $filas_afectadas=$prepared_statement->affected_rows;
         return $filas_afectadas;
-      } else {
-        /*foreach ($prepared_statement->error_list as $key=>$value) {
-          echo "<br/>";
-          var_dump($value);
-        }*/
-
-        return -1;
       }
 
-      $filas_afectadas=$prepared_statement->affected_rows;
+      return -1;
     }
 
     private function update() {
@@ -186,11 +211,13 @@
         $this->contrasenia,
         $this->id
       );
-      $prepared_statement->execute();
 
-      $filas_afectadas=$prepared_statement->affected_rows;
+      if ($prepared_statement->execute()==true) {
+        $filas_afectadas=$prepared_statement->affected_rows;
+        return $filas_afectadas;
+      }
 
-      return $filas_afectadas;
+      return -1;
     }
   }
 ?>
