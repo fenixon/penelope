@@ -23,6 +23,7 @@
     private $fecha_nac;
     private $email;
     private $fecha_baja;
+    private $manejadores_sesion;
 
     //=========================================================================
     //Constructor
@@ -150,6 +151,11 @@
       $this->fecha_baja=$fecha_baja;
     }
 
+    public function addManejadorSesion($id_manejador) {
+      $manejador=ManejadorSesion($id_manejador);
+      array_push($this->manejadores_sesion, $manejador);
+    }
+
     public function save() {
       if ($this->getId() <= 0) {
         if ($this->insert() > 0) {
@@ -218,6 +224,29 @@
       }
 
       return -1;
+    }
+
+    public function encontrar($params) {
+      $query='SELECT * FROM usuarios WHERE ';
+      $resultado=NULL;
+      $i=0;
+
+      foreach ($params as $atributo => $valor) {
+        if ($i>0) {
+          $query.=' AND ';
+        }
+
+        $query.="$atributo='$valor'";
+        $i+=1;
+      }
+
+      $resultado=$this->getDB()->query($query);
+
+      if (isset($resultado)) {
+        return new Usuario($resultado->fetch_assoc());
+      }
+
+      return NULL;
     }
   }
 ?>

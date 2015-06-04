@@ -11,5 +11,4 @@
     'cache_dir' => ROOT_DIR.'/vendor/smarty/smarty/cache/',
     'config_dir' => ROOT_DIR.'/vendor/smarty/smarty/configs/'
   );
-  define ("URL_BASE","/penelope/");
 ?>

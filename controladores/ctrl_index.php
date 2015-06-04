@@ -31,12 +31,17 @@
     }
 
     public function redirect($controlador="usuario",$accion="create",$params=array()){
-        //header("Location:index.php?controller=".$controlador."&action=".$accion);
-        $url= URL_BASE.$controlador."/".$accion."/";
+        $url=URL_BASE.$controlador."/".$accion."/";
         foreach ($params as $key => $value) {
             $url.=$value."/";
         }
-        header("Location:".$url);
+
+        header("Location: ".$url);
+    }
+
+    public function relocate($url) {
+      header("Location: ".$url);
+      //echo $url;
     }
 
     public function getUrl($controlador="usuario",
