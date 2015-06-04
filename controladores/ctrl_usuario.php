@@ -209,5 +209,20 @@
       $template=Template::getInstance();
       $template->mostrar('usuario/principal');
     }
+
+    /**
+    * Método que invoca la vista con el perfil del usuario consultado.
+    * @param numeric id_usuario Se debe ingresar la identificación del usuario 
+    *                           a consultar.
+    */
+    public function perfil() {
+      Session::init();
+
+      $usuario=new Usuario();
+      $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+      $template=Template::getInstance();
+      $template->asignar('usuario', $usuario);
+      $template->mostrar('usuario/perfil');
+    }
   }
 ?>

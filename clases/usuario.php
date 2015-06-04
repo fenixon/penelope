@@ -128,21 +128,23 @@
     }
 
     public function setEmail($email) {
-      //Control de dirección email repetida----------------------------------->
-      $email=strtolower($email);
-      $sql='SELECT * FROM usuarios WHERE email=?';
-      $prepared_statement=$this->getDB()->prepare($sql);
-      $prepared_statement->bind_param('s', $email);
+      if ($this->id<0) {
+        //Control de dirección email repetida--------------------------------->
+        $email=strtolower($email);
+        $sql='SELECT * FROM usuarios WHERE email=?';
+        $prepared_statement=$this->getDB()->prepare($sql);
+        $prepared_statement->bind_param('s', $email);
 
-      if ($prepared_statement->execute()==true) {
-        $prepared_statement->store_result();
-        if ($prepared_statement->num_rows()>0) {
-          $this->addError('email', "¡Clave duplicada!");
-          $prepared_statement->close();
-          return;
+        if ($prepared_statement->execute()==true) {
+          $prepared_statement->store_result();
+          if ($prepared_statement->num_rows()>0) {
+            $this->addError('email', "¡Clave duplicada!");
+            $prepared_statement->close();
+            return;
+          }
         }
+        //--------------------------------------------------------------------<
       }
-      //----------------------------------------------------------------------<
 
       $this->email=$email;
     }
@@ -226,7 +228,7 @@
       return -1;
     }
 
-    public function encontrar($params) {
+    public function encontrar($params=NULL) {
       $query='SELECT * FROM usuarios WHERE ';
       $resultado=NULL;
       $i=0;

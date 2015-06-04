@@ -37,18 +37,18 @@ class Session {
   public static function iniciar($nick_email, $contrasenia) {
     $usuario=new Usuario();
 
-    $encontrado=$usuario->encontrar([
+    $usuario_encontrado=$usuario->encontrar([
       'nick'=>$nick_email,
       'contrasenia'=>sha1($contrasenia)]);
 
-    if ($encontrado==false) {
+    if (isset($usuario_encontrado)==false) {
       $encontrado=$usuario->encontrar([
         'email'=>$nick_email,
         'contrasenia'=>sha1($contrasenia)]);
     }
 
-    if ($encontrado==true) {
-      self::set('id_usuario', $usuario->getId());
+    if (isset($usuario_encontrado)==true) {
+      self::set('id_usuario', $usuario_encontrado->getId());
       return true;
     } else {
       self::destroy();
