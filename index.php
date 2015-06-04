@@ -1,10 +1,12 @@
 <?php
   define('ROOT_DIR', dirname(__FILE__));
-  define('URL_BASE', $_SERVER['HTTP_HOST']."/penelope/");
+  define('URL_BASE', "http://".$_SERVER['HTTP_HOST']."/penelope/");
+  //define('URL_BASE', "http://localhost/penelope/");
 
   require 'vendor/autoload.php';
   require 'config/config.php';
   require 'db/db.php';
+  require 'clases/session.php';
   require_once 'controladores/ctrl_index.php';
   require_once('clases/template.php');
   require_once 'clases/clase_base.php';

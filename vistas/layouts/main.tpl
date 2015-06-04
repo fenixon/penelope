@@ -11,7 +11,7 @@
     <meta name="author" content="Piratas"/>
     <meta name="description" content=""/>
 
-    <base href="http://{$url_base}">
+    <base href="{$url_base}">
 
     <link rel="icon" href="http://getbootstrap.com/favicon.ico">
 
