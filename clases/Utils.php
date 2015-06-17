@@ -71,6 +71,10 @@ class Utils{
 
 	return $res;
 
-	}	
+	}
+
+  public static function crear_enlace ($controlador="usuario", $accion="sesion") {
+    return URL_BASE.$controlador.$accion;
+  }
 }
 ?>

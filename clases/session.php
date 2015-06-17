@@ -42,7 +42,7 @@ class Session {
       'contrasenia'=>sha1($contrasenia)]);
 
     if (isset($usuario_encontrado)==false) {
-      $encontrado=$usuario->encontrar([
+      $usuario_encontrado=$usuario->encontrar([
         'email'=>$nick_email,
         'contrasenia'=>sha1($contrasenia)]);
     }

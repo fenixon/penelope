@@ -22,11 +22,11 @@
     }
 
     function ejecutarAccion($controllerObj,$action,$params){
-        if(isset($action) && method_exists($controllerObj, 
-            $action)){
-            $this->cargarAccion($controllerObj, $action,$params);
+        if(isset($action) && method_exists($controllerObj, $action)
+          ){
+            $this->cargarAccion($controllerObj, $action, $params);
         }else{
-            $this->cargarAccion($controllerObj, "create",$params);
+            $this->cargarAccion($controllerObj, "create", $params);
         }
     }
 

@@ -1,4 +1,5 @@
 {extends file='layouts/main.tpl'}
+
 {block name=body}
 <form class="form-horizontal" action='usuario/sesion' method='POST'>
   <fieldset>

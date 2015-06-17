@@ -1,8 +1,8 @@
 <?php
   /**
-  * --------------
+  * ---------------
   * Tabla usuarios:
-  * --------------
+  * ---------------
   * id           int(11)
   * nick         varchar(100)
   * contrasenia  varchar(100)

@@ -10,6 +10,8 @@
     * sesión con dicho manejador si lo desea.
     */
     public function create($params=NULL) {
+      Auth::requiere_anonimo();
+
       if ($params==NULL or $params[0]=="" or $params=="penelope") {
         $this->crear_propio();
       } else if ($params[0]=="facebook") {
@@ -76,7 +78,7 @@
     * @param string contrasenia Constraseña del usuario.
     */
     public function save($params) {
-      Session::init();
+      Auth::requiere_usuario();
 
       if (Session::has_key('id_manejador')) {
         $id_manejador=Session::get('id_manejador');
@@ -155,7 +157,7 @@
       Session::init();
 
       if (Session::has_key('id_usuario')==false) {
-        $this->iniciar_sesion();
+        $this->iniciar_sesion($params);
       } else if ($params[0]=='cerrar') {
         $this->cerrar_sesion();
       } else {
@@ -168,10 +170,24 @@
     * @param string nick_email  El nick o email que identifica al usuario.
     * @param string contrasenia La contraseña que envía el usuario.
     */
-    private function iniciar_sesion() {
+    private function iniciar_sesion($params=NULL) {
       $nick_email=NULL;
       $contrasenia=NULL;
 
+      if (isset($params[0])) {
+        if ($params[0]=='facebook') {
+          $this->iniciar_con_facebook();
+        } else if ($params[0]=='google') {
+          $this->iniciar_con_google();
+        } else if ($params[0]=='twitter') {
+          $this->iniciar_con_twitter();
+        }
+      }
+
+      $this->iniciar_con_penelope();
+    }
+
+    private function iniciar_con_penelope() {
       if (isset($_POST['nick_email'])) {
         $nick_email=$_POST['nick_email'];
       }
@@ -183,7 +199,7 @@
         $usuario=Session::iniciar($nick_email, $contrasenia);
 
         if ($usuario==true) {
-          $this->redirect('usuario', 'create');
+          $this->redirect('usuario', 'principal');
         } else {
           $this->redirect('usuario', 'sesion');
         }
@@ -206,6 +222,8 @@
     * Método que despliega la vista principal de usuarios.
     */
     public function principal() {
+      Auth::requiere_usuario();
+
       $template=Template::getInstance();
       $template->mostrar('usuario/principal');
     }
@@ -216,13 +234,28 @@
     *                           a consultar.
     */
     public function perfil() {
-      Session::init();
+      Auth::requiere_usuario();
 
       $usuario=new Usuario();
       $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+
       $template=Template::getInstance();
       $template->asignar('usuario', $usuario);
       $template->mostrar('usuario/perfil');
+    }
+
+    /**
+    * Método que invoca la vista con el formulario de modificación de usuarios.
+    */
+    public function modificar() {
+      Auth::requiere_usuario();
+
+      $usuario=new Usuario();
+      $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+
+      $template=Template::getInstance();
+      $template->asignar('usuario', $usuario);
+      $template->mostrar('usuario/modificar');
     }
   }
 ?>

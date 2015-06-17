@@ -8,6 +8,7 @@
   require 'db/db.php';
   require 'clases/session.php';
   require_once 'controladores/ctrl_index.php';
+  require 'clases/auth.php';
   require_once('clases/template.php');
   require_once 'clases/clase_base.php';
   $controlIndex=new ControladorIndex();

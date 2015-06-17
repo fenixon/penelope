@@ -83,30 +83,34 @@
             <span class="icon-bar"></span>
           </button>
 
-          <a class="logo-new" href="#">Penélope</a>
+          <a class="logo-new" href="{$url_base}">Penélope</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">INICIO</a></li>
-            <li><a href="#about">INGRESAR</a></li>
-            <li><a href="#contact">CONTACTENOS</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                 role="button" aria-expanded="false">
-                 Dropdown <span class="caret"></span>
-              </a>
+            {block name='navbar'}
+              <li><a href="{$url_base}usuario/sesion">Iniciar sesión</a></li>
+              <li><a href="{$url_base}usuario/create">Registro</a></li>
+              <!--<li class="active"><a href="#">INICIO</a></li>
+              <li><a href="#about">INGRESAR</a></li>
+              <li><a href="#contact">CONTACTENOS</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                   role="button" aria-expanded="false">
+                   Dropdown <span class="caret"></span>
+                </a>
 
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>-->
+            {/block}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
