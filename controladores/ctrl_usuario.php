@@ -145,7 +145,26 @@
     *                          eliminar.
     * @to do Falta todo.
     */
-    public function eliminar() {
+    public function eliminar($params=NULL) {
+      Auth::requiere_usuario();
+
+      $usuario=new Usuario();
+      $usuario_conectado=$usuario->obtenerPorId(Session::get('id_usuario'));
+      $id_usuario=Session::get('id_usuario');
+      $accion='sesion';
+
+      if ($usuario_conectado->getAdmin()==true) {
+        if (isset($params[0])==true) {
+          $id_usuario=$params[0];
+        }
+      } else {
+        Session::destroy();
+      }
+
+      $usuario_conectado->setFechaBaja('2015-06-17');
+      $usuario_conectado->save();
+
+      $this->redirect('usuario', $accion);
     }
 
     /**
