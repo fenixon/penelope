@@ -89,6 +89,8 @@
       } else {
         $this->guardar_penelope();
       }
+
+      $this->redirect('usuario', 'login');
     }
 
     private function guardar_penelope() {
@@ -111,8 +113,6 @@
           }
         }
       }
-
-      //$this->redirect('usuario', 'login');
     }
 
     private function guardar_facebook() {
@@ -137,8 +137,6 @@
           }
         }
       }
-
-      //$this->redirect('usuario', 'login');
     }
 
     /**

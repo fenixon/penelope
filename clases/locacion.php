@@ -129,7 +129,7 @@
 
       $prepared_statement=$this->getDB()->prepare($sql);
       $prepared_statement->bind_param(
-        'iddsb',
+        'iddsi',
         Session::get('id_usuario'),
         $this->latitud,
         $this->longitud,
