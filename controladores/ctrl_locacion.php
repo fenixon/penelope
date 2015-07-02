@@ -31,5 +31,18 @@
 
       $this->redirect('usuario', 'principal');
     }
+
+    public function mostrar ($params=NULL) {
+      if (isset($params[0])) {
+        $auxiliar_locacion=new Locacion();
+        $locacion=$auxiliar_locacion->obtenerPorId((int) $params[0]);
+
+        $template=Template::getInstance();
+        $template->asignar("locacion", $locacion);
+        $template->mostrar("locacion/mostrar");
+      } else {
+        $this->redirect("locacion", "listar");
+      }
+    }
   }
 ?>

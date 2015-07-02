@@ -37,7 +37,7 @@
       <script>
         function initialize() {
           var mapProp = {
-            center:new google.maps.LatLng(-32.317932, -58.086437),
+            center:new google.maps.LatLng({block name=latitud}-32.317932{/block}, {block name=longitud}-58.086437{/block}),
             zoom: 15,
             mapTypeId:google.maps.MapTypeId.ROADMAP
           };
@@ -48,10 +48,10 @@
           );
 
           //marcadores
-          var place = new google.maps.LatLng(-32.317932, -58.086437);
+          var place = new google.maps.LatLng({block name=latitud}-32.317932{/block}, {block name=longitud}-58.086437{/block});
           var marker = new google.maps.Marker({
                 position: place,
-                title: 'Paysandú Innova, Casa del TIP',
+                title: "{block name=locacion}Paysandú Innova, Casa del TIP{/block}",
                 map: map});
         }
 
@@ -93,7 +93,9 @@
             {block name='navbar_new'}
               {include file='layouts/opciones_usuario.tpl'}
               {include file='layouts/opciones_eventos.tpl'}
+              {include file='layouts/opciones_locacion.tpl'}
             {/block}
+
             {block name='navbar_old'}
               <!--li><a href="{$url_base}usuario/sesion">Iniciar sesión</a></li>
               <li><a href="{$url_base}usuario/create">Registro</a></li>

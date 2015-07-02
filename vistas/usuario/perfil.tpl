@@ -26,7 +26,7 @@
   </div>
 
   <div class="row panel-body">
-    <a href="{$url_base}usuario/modificar" class="btn btn-primary">Editar perfil</a>
+    <a href="usuario/modificar" class="btn btn-primary">Editar perfil</a>
   </div>
 </div>
 {/block}

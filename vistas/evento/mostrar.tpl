@@ -12,11 +12,17 @@
     </div>
 
     <div class="col-lg-12">
-      <strong>Registrado por:</strong> <a href="#">{$evento->getCreador()}</a>
+      <strong>Registrado por:</strong>
+      <a href="usuario/perfil/{$evento->getCreador()}">
+        {$evento->getCreador()}
+      </a>
     </div>
 
     <div class="col-lg-12">
-      <strong>Se realiza en:</strong> <a href="#">{$evento->getLocacion()}</a>
+      <strong>Se realiza en:</strong>
+      <a href="locacion/mostrar/{$evento->getLocacion()}">
+        {$evento->getLocacion()}
+      </a>
     </div>
 
     <div class="col-lg-6">

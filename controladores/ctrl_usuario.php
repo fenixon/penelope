@@ -258,11 +258,16 @@
     * @param numeric id_usuario Se debe ingresar la identificación del usuario 
     *                           a consultar.
     */
-    public function perfil() {
+    public function perfil($params=NULL) {
       Auth::requiere_usuario();
 
       $usuario=new Usuario();
-      $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+
+      if (isset($params[0])==true) {
+        $usuario=$usuario->obtenerPorId((int) $params[0]);
+      } else {
+        $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+      }
 
       $template=Template::getInstance();
       $template->asignar('usuario', $usuario);

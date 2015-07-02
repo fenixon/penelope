@@ -12,7 +12,7 @@
   */
   class Locacion extends ClaseBase {
     private $id;
-    private $id_creador;
+    private $creador;
     private $latitud;
     private $longitud;
     private $nombre;
@@ -56,8 +56,8 @@
       return $this->id;
     }
 
-    public function getIdCreador() {
-      return $this->id_creador;
+    public function getCreador() {
+      return $this->creador;
     }
 
     public function getLatitud() {
@@ -83,8 +83,8 @@
       $this->id=$id;
     }
 
-    public function setIdCreador($id_creador) {
-      $this->id_creador=$id_creador;
+    public function setCreador($creador) {
+      $this->creador=$creador;
     }
 
     public function setLatitud($latitud) {
