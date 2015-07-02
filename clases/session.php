@@ -55,4 +55,9 @@ class Session {
       return false;
     }
   }
+
+  public static function usuario_conectado() {
+    self::init();
+    return Session::has_key('id_usuario');
+  }
 }

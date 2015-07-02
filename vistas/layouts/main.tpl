@@ -33,29 +33,31 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="http://maps.googleapis.com/maps/api/js"></script>
-    <script>
-      function initialize() {
-        var mapProp = {
-          center:new google.maps.LatLng(-32.317932, -58.086437),
-          zoom: 15,
-          mapTypeId:google.maps.MapTypeId.ROADMAP
-        };
+    {block name="custom script"}
+      <script>
+        function initialize() {
+          var mapProp = {
+            center:new google.maps.LatLng(-32.317932, -58.086437),
+            zoom: 15,
+            mapTypeId:google.maps.MapTypeId.ROADMAP
+          };
 
-        var map=new google.maps.Map(
-          document.getElementById("googleMap"),
-          mapProp
-        );
+          var map=new google.maps.Map(
+            document.getElementById("googleMap"),
+            mapProp
+          );
 
-        //marcadores
-        var place = new google.maps.LatLng(-32.317932, -58.086437);
-        var marker = new google.maps.Marker({
-              position: place,
-              title: 'Paysandú Innova, Casa del TIP',
-              map: map});
-      }
+          //marcadores
+          var place = new google.maps.LatLng(-32.317932, -58.086437);
+          var marker = new google.maps.Marker({
+                position: place,
+                title: 'Paysandú Innova, Casa del TIP',
+                map: map});
+        }
 
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+        google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+    {/block}
 
     <style>
       @font-face {
@@ -88,8 +90,12 @@
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            {block name='navbar'}
-              <li><a href="{$url_base}usuario/sesion">Iniciar sesión</a></li>
+            {block name='navbar_new'}
+              {include file='layouts/opciones_usuario.tpl'}
+              {include file='layouts/opciones_eventos.tpl'}
+            {/block}
+            {block name='navbar_old'}
+              <!--li><a href="{$url_base}usuario/sesion">Iniciar sesión</a></li>
               <li><a href="{$url_base}usuario/create">Registro</a></li>
               <!--<li class="active"><a href="#">INICIO</a></li>
               <li><a href="#about">INGRESAR</a></li>
@@ -117,6 +123,10 @@
     </nav>
 
     <div class="container">
+      {block name=flash}
+        {include file='layouts/notificaciones_flash.tpl'}
+      {/block}
+
       {block name=body}{/block}
 
       <div class="row">

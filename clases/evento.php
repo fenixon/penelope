@@ -15,8 +15,8 @@
   */
   class Evento extends ClaseBase {
     private $id;
-    private $id_creador;
-    private $id_locacion;
+    private $creador;
+    private $locacion;
     private $asistencia;
     private $puntaje;
     private $titulo;
@@ -59,12 +59,12 @@
       return $this->id;
     }
 
-    public function getIdCreador() {
-      return $this->id_creador;
+    public function getCreador() {
+      return $this->creador;
     }
 
-    public function getIdLocacion() {
-      return $this->id_locacion;
+    public function getLocacion() {
+      return $this->locacion;
     }
 
     public function getAsistencia() {
@@ -79,16 +79,28 @@
       return $this->titulo;
     }
 
-    public function getComienzo() {
-      return $this->comienzo;
+    public function getComienzo($formato="d/m/Y") {
+      $fecha=new DateTime($this->comienzo);
+      return date_format($fecha, $formato);
     }
 
-    public function getFin() {
-      return $this->fin;
+    public function getFin($formato="d/m/Y") {
+      $fecha=new DateTime($this->fin);
+      return date_format($fecha, $formato);
     }
 
     public function getDescripcion() {
       return $this->descripcion;
+    }
+
+    public function isVencido() {
+      $ahora=new DateTime();
+
+      if ($ahora>$this->fin) {
+        return true;
+      }
+
+      return false;
     }
 
     //-------------------------------------------------------------------------
@@ -101,7 +113,9 @@
       $resultado=$evento->getDB()->query($sql);
 
       if (isset($resultado)) {
-        $eventos[]=new Evento($resultado->fetch_assoc());
+        while($datos_evento=$resultado->fetch_assoc()) {
+          array_push($eventos, new Evento($datos_evento));
+        }
       }
 
       return $eventos;
@@ -114,12 +128,12 @@
       $this->id=$id;
     }
 
-    public function setIdCreador($id_creador) {
-      $this->id_creador=$id_creador;
+    public function setCreador($creador) {
+      $this->creador=$creador;
     }
 
-    public function setIdLocacion($id_locacion) {
-      $this->id_locacion=$id_locacion;
+    public function setLocacion($locacion) {
+      $this->locacion=$locacion;
     }
 
     public function setAsistencia($asistencias) {

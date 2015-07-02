@@ -6,7 +6,7 @@
         $strFileController='controladores/'.$controlador.'.php';
 
         if(!is_file($strFileController)){
-            $strFileController='controladores/ctrl_usuario.php';  
+            $strFileController='controladores/ctrl_usuario.php';
             $controlador_clase="ControladorUsuario";
         }
 
@@ -41,7 +41,6 @@
 
     public function relocate($url) {
       header("Location: ".$url);
-      //echo $url;
     }
 
     public function getUrl($controlador="usuario",
@@ -50,6 +49,7 @@
         foreach ($params as $key => $value) {
             $url.=$value."/";
         }
+
         return $url;
     }
   }

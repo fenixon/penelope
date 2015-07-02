@@ -17,17 +17,19 @@
       </thead>
 
       <tbody>
-        <tr>
-          {foreach $eventos as $evento}
-            <td><a href="#">{$evento->getTitulo()}</a></td>
+        {foreach $eventos as $evento}
+          <tr>
+            <td><a href="evento/mostrar/{$evento->getId()}">{$evento->getTitulo()}</a></td>
             <td>{$evento->getDescripcion()}</td>
             <td>{$evento->getAsistencia()}</td>
             <td>{$evento->getComienzo()}</td>
             <td>{$evento->getFin()}</td>
-          {foreachelse}
-            <td colspan=""><h3>No hay eventos registrados.</h3></td>
-          {/foreach}
-        </tr>
+          </tr>
+        {foreachelse}
+          <tr>
+            <td colspan="5"><h3>No hay eventos registrados.</h3></td>
+          </tr>
+        {/foreach}
       </tbody>
     </table>
   </div>

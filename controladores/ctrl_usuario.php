@@ -1,6 +1,8 @@
 <?php
   require_once ROOT_DIR.'/clases/usuario.php';
   require_once ROOT_DIR.'/clases/facebook_helper.php';
+  require_once ROOT_DIR.'/clases/evento.php';
+  require_once ROOT_DIR.'/clases/locacion.php';
 
   class ControladorUsuario extends ControladorIndex {
     /**
@@ -77,7 +79,7 @@
     *                           al usuario.
     * @param string contrasenia Constraseña del usuario.
     */
-    public function save($params) {
+    public function save($params=NULL) {
       Auth::requiere_usuario();
 
       if (Session::has_key('id_manejador')) {
@@ -212,6 +214,8 @@
         $contrasenia=$_POST['contrasenia'];
       }
 
+      $template=Template::getInstance();
+
       if (isset($nick_email)) {
         $usuario=Session::iniciar($nick_email, $contrasenia);
 
@@ -221,7 +225,6 @@
           $this->redirect('usuario', 'sesion');
         }
       } else {
-        $template=Template::getInstance();
         $template->mostrar('usuario/sesion');
       }
     }
@@ -241,7 +244,12 @@
     public function principal() {
       Auth::requiere_usuario();
 
+      $evento=new Evento();
+      $locacion=new Locacion();
+
       $template=Template::getInstance();
+      $template->asignar('eventos', $evento->getEventos());
+      $template->asignar('locaciones', $locacion->getListado());
       $template->mostrar('usuario/principal');
     }
 
@@ -273,6 +281,31 @@
       $template=Template::getInstance();
       $template->asignar('usuario', $usuario);
       $template->mostrar('usuario/modificar');
+    }
+
+    public function actualizar() {
+      Auth::requiere_usuario();
+
+      $fecha=DateTime::createFromFormat("d/m/Y", $_POST["fecha_nac"]);
+
+      $usuario=new Usuario();
+      $usuario=$usuario->obtenerPorId(Session::get('id_usuario'));
+      $usuario->setNombres($_POST["nombres"]);
+      $usuario->setApellidos($_POST["apellidos"]);
+      $usuario->setEmail($_POST["email"]);
+      $usuario->setFechaNac(date_format($fecha, "Y-m-d"));
+      $usuario->save();
+
+      if (count($usuario->getErrores())>0) {
+        foreach ($usuario->getErrores() as $campo=>$errores) {
+          echo "$campo:<br/>";
+          foreach ($errores as $error) {
+            echo "* $error<br/>";
+          }
+        }
+      }
+
+      $this->redirect('usuario', 'perfil');
     }
   }
 ?>

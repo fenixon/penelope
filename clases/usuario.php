@@ -77,15 +77,16 @@
     }
 
     public function getNombres() {
-      return $this->nombres;
+      return trim($this->nombres);
     }
 
     public function getApellidos() {
-      return $this->apellidos;
+      return trim($this->apellidos);
     }
 
-    public function getFechaNac() {
-      return $this->fecha_nac;
+    public function getFechaNac($formato="d/m/Y") {
+      $fecha=new DateTime($this->fecha_nac);
+      return date_format($fecha, $formato);
     }
 
     public function getEmail() {
@@ -243,6 +244,8 @@
       }
 
       $resultado=$this->getDB()->query($query);
+
+      var_dump($query);
 
       if (isset($resultado)) {
         return new Usuario($resultado->fetch_assoc());

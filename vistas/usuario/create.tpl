@@ -39,7 +39,7 @@
         <label class="control-label" for="contrasenia">Contraseña</label>
         <div class="controls">
           <input id="contrasenia" name="contrasenia" placeholder="ej.: ******"
-                 class="input-xlarge" required="" type="contrasenia"/>
+                 class="input-xlarge" required="" type="password"/>
         </div>
       </div>
 

@@ -55,6 +55,11 @@ class Template{
   function asignar($clave,$valor){
     $this->_smarty->assign($clave, $valor);
   }
+
+  function flash($tipo_alerta, $mensajes) {
+    $this->asignar('flash',array('tipo_alerta'=>$tipo_alerta,
+    'mensajes'=>$mensajes));
+  }
 }
 ?>
 
